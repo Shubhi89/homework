@@ -119,14 +119,14 @@ const TasksPage = () => {
     <>
       {/* --- Responsive Control Bar --- */}
       <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-3 mb-4">
-        <InputGroup className="w-100" style={{ maxWidth: '400px' }}>
+        <InputGroup className="w-100 w-md-auto">
           <FormControl
             placeholder="Search by title or description"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </InputGroup>
-        <Button variant="primary" onClick={handleShowCreateModal} className="w-100 w-md-auto">
+        <Button variant="primary" onClick={handleShowCreateModal} className="w-100 w-md-auto" style={{ maxWidth: '200px' }}>
           + Create Task
         </Button>
       </div>

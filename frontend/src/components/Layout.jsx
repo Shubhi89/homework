@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Button, Offcanvas } from 'react-bootstrap';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import SidebarNav from './SidebarNav'; // Import the new Nav component
+import SidebarNav from './SidebarNav';
 import './Layout.css';
 
 const Layout = () => {
@@ -18,8 +18,7 @@ const Layout = () => {
     logout();
     navigate('/login');
   };
-  
-  // This function is passed to the mobile sidebar to close it after navigation
+
   const handleLinkClick = () => {
     handleSidebarClose();
   };
@@ -32,9 +31,8 @@ const Layout = () => {
           ☰
         </Button>
         
-        <h5 className="mb-0 mx-2">✓ Task Manager</h5>
+        <h5 className="mb-0 mx-2 text-primary fs-2 mt-2 mb-3">✓ Task Manager</h5>
 
-        {/* Spacer to push logout to the right */}
         <div className="flex-grow-1"></div> 
         
         <Button variant="outline-secondary" size="sm" onClick={handleLogout}>
@@ -50,14 +48,14 @@ const Layout = () => {
 
         {/* Main Content Area */}
         <Col xs={12} lg={10} className="p-4 bg-dark-subtle overflow-auto">
-          <Outlet /> {/* Child routes will render here */}
+          <Outlet />
         </Col>
       </Row>
 
-      {/* Offcanvas Sidebar for Mobile/Tablet */}
-      <Offcanvas show={showSidebar} onHide={handleSidebarClose} responsive="lg" className="bg-dark text-white">
+      {/* Offcanvas Sidebar for Mobile/Tablet - REMOVED responsive="lg" prop */}
+      <Offcanvas show={showSidebar} onHide={handleSidebarClose} className="bg-dark text-white">
         <Offcanvas.Header closeButton closeVariant="white">
-          <Offcanvas.Title>Menu</Offcanvas.Title>
+          <Offcanvas.Title className='fs-2'>Menu</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <SidebarNav onLinkClick={handleLinkClick} />
