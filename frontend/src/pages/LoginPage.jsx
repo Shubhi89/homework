@@ -26,7 +26,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Container className="vh-100 d-flex align-items-center justify-content-center" fluid data-bs-theme="dark">
+    <Container className="vh-100 d-flex align-items-center justify-content-center bg-dark" fluid data-bs-theme="dark">
       <Row className="w-100 justify-content-center">
         {/* Responsive column that adjusts its width based on screen size */}
         <Col xs={11} sm={8} md={6} lg={5} xl={4}>
