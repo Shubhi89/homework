@@ -1,13 +1,8 @@
-// src/components/SidebarNav.jsx
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
-/**
- * A reusable component for the sidebar navigation links.
- * @param {object} props - Component props.
- * @param {Function} [props.onLinkClick] - Optional callback to run when a link is clicked.
- */
+
 const SidebarNav = ({ onLinkClick }) => {
   return (
     <Nav className="flex-column">

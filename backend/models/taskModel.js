@@ -1,4 +1,3 @@
-// models/taskModel.js
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
@@ -15,7 +14,7 @@ const taskSchema = new mongoose.Schema({
     maxlength: 500,
   },
 }, {
-  timestamps: { createdAt: true, updatedAt: false }, // Only add createdAt
+  timestamps: { createdAt: true, updatedAt: false }, 
 });
 
 const Task = mongoose.model('Task', taskSchema);

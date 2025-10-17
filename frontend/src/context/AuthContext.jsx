@@ -1,4 +1,3 @@
-// src/context/AuthContext.jsx
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext(null);
@@ -14,9 +13,9 @@ export const AuthProvider = ({ children }) => {
     if (username === 'admin' && password === 'password123') {
       sessionStorage.setItem('isAuthenticated', 'true');
       setIsAuthenticated(true);
-      return true; // Indicate success
+      return true;
     }
-    return false; // Indicate failure
+    return false; 
   };
 
   const logout = () => {
@@ -31,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the auth context
+
 export const useAuth = () => {
   return useContext(AuthContext);
 };

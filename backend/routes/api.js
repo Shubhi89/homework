@@ -1,4 +1,3 @@
-// routes/api.js
 const express = require('express');
 const router = express.Router();
 const taskController = require('../controllers/taskController');
@@ -11,18 +10,16 @@ const authMiddleware = (req, res, next) => {
     return res.status(401).json({ error: "Unauthorized access. Please provide valid credentials." });
   }
 
-  // The header should be in the format "Basic <base64-encoded-credentials>"
   const [scheme, credentials] = authHeader.split(' ');
   
   if (scheme !== 'Basic') {
       return res.status(401).json({ error: "Malformed authorization header." });
   }
 
-  // Decode the base64 credentials
   const decoded = Buffer.from(credentials, 'base64').toString();
   const [username, password] = decoded.split(':');
 
-  // Check against the static credentials [cite: 219, 220]
+  // Check against the static credentials
   if (username === 'admin' && password === 'password123') {
     next(); // Credentials are valid, proceed to the next middleware/handler
   } else {

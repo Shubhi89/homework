@@ -1,4 +1,3 @@
-// controllers/taskController.js
 const Task = require('../models/taskModel');
 const Log = require('../models/logModel');
 const { createLog } = require('./logController');
@@ -50,19 +49,19 @@ exports.createTask = async (req, res) => {
   try {
     const { title, description } = req.body;
 
-    // Backend Validation [cite: 212]
+    // Backend Validation
     if (!title || !description) {
       return res.status(400).json({ error: 'Title and description are required.' });
     }
     
-    // Sanitize inputs [cite: 214]
+    // Sanitize inputs
     const sanitizedTitle = sanitize(title);
     const sanitizedDescription = sanitize(description);
 
     const newTask = new Task({ title: sanitizedTitle, description: sanitizedDescription });
     await newTask.save();
 
-    // Create Audit Log [cite: 195, 208]
+    // Create Audit Log
     createLog('Create Task', newTask._id, {
       title: newTask.title,
       description: newTask.description,
@@ -97,7 +96,7 @@ exports.updateTask = async (req, res) => {
     const updatedTask = await Task.findByIdAndUpdate(
       req.params.id,
       { $set: updatedFields },
-      { new: true } // Return the updated document
+      { new: true }
     );
 
     // Create Audit Log only for changed fields 
@@ -118,8 +117,8 @@ exports.deleteTask = async (req, res) => {
       return res.status(404).json({ error: 'Task not found' });
     }
 
-    // Create Audit Log [cite: 195, 209]
-    createLog('Delete Task', task._id, {}); // updatedContent can be empty
+    // Create Audit Log
+    createLog('Delete Task', task._id, {}); 
 
     res.json({ message: 'Task deleted successfully' });
   } catch (error) {

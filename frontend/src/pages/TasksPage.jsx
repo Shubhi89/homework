@@ -1,4 +1,3 @@
-// src/pages/TasksPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import { Table, Button, Modal, Form, InputGroup, FormControl, Pagination, Spinner, Alert, Card } from 'react-bootstrap';
 import api from '../services/api';
@@ -117,7 +116,6 @@ const TasksPage = () => {
 
   return (
     <>
-      {/* --- Responsive Control Bar --- */}
       <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-3 mb-4">
         <InputGroup className="w-100 w-md-auto">
           <FormControl
@@ -137,7 +135,6 @@ const TasksPage = () => {
         <div className="text-center"><Spinner animation="border" /></div>
       ) : tasks.length > 0 ? (
         <>
-          {/* --- Responsive Table --- */}
           <Table striped bordered hover variant="dark" responsive="sm">
             <thead>
               <tr>
@@ -156,7 +153,6 @@ const TasksPage = () => {
                   <td>{task.description}</td>
                   <td>{new Date(task.createdAt).toLocaleDateString()}</td>
                   <td>
-                    {/* --- Responsive Action Buttons --- */}
                     <div className="d-flex flex-column flex-sm-row gap-2">
                       <Button variant="outline-warning" size="sm" onClick={() => handleShowEditModal(task)}>Edit</Button>
                       <Button variant="outline-danger" size="sm" onClick={() => handleDelete(task._id)}>Delete</Button>
@@ -185,7 +181,6 @@ const TasksPage = () => {
         <Card body className="text-center bg-dark-tertiary">No tasks found. Try adjusting your search.</Card>
       )}
 
-      {/* The Modal is responsive by default */}
       <Modal show={showModal} onHide={handleCloseModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>{editingTask ? 'Edit Task' : 'Create Task'}</Modal.Title>

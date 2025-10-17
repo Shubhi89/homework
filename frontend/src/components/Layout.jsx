@@ -1,4 +1,3 @@
-// src/components/Layout.jsx
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Offcanvas } from 'react-bootstrap';
 import { Outlet, useNavigate } from 'react-router-dom';
@@ -52,7 +51,7 @@ const Layout = () => {
         </Col>
       </Row>
 
-      {/* Offcanvas Sidebar for Mobile/Tablet - REMOVED responsive="lg" prop */}
+      {/* Offcanvas Sidebar for Mobile/Tablet*/}
       <Offcanvas show={showSidebar} onHide={handleSidebarClose} className="bg-dark text-white">
         <Offcanvas.Header closeButton closeVariant="white">
           <Offcanvas.Title className='fs-2'>Menu</Offcanvas.Title>

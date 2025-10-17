@@ -1,4 +1,3 @@
-// src/services/api.js
 import axios from 'axios';
 
 // The credentials for Basic Authentication

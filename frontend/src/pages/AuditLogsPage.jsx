@@ -1,4 +1,3 @@
-// src/pages/AuditLogsPage.jsx
 import React, { useState, useEffect } from 'react';
 import { Table, Badge, Spinner, Alert, Card } from 'react-bootstrap';
 import api from '../services/api';
