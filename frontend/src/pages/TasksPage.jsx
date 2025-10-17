@@ -178,7 +178,7 @@ const TasksPage = () => {
           )}
         </>
       ) : (
-        <Card body className="text-center bg-dark-tertiary">No tasks found. Try adjusting your search.</Card>
+        <Card body className="text-center bg-dark-tertiary">No tasks found</Card>
       )}
 
       <Modal show={showModal} onHide={handleCloseModal} centered>
