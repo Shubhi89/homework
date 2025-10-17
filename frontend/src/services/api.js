@@ -5,7 +5,7 @@ const username = 'admin';
 const password = 'password123';
 
 const api = axios.create({
-  baseURL: 'https://homework-16xf.onrender.com',
+  baseURL: 'https://homework-16xf.onrender.com/api',
   auth: {
     username: username,
     password: password,
