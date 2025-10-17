@@ -1,42 +1,68 @@
 // src/components/Layout.jsx
-import React from 'react';
-import { Container, Row, Col, Nav, Button } from 'react-bootstrap';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
+import React, { useState } from 'react';
+import { Container, Row, Col, Button, Offcanvas } from 'react-bootstrap';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import SidebarNav from './SidebarNav'; // Import the new Nav component
 import './Layout.css';
 
 const Layout = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const handleSidebarClose = () => setShowSidebar(false);
+  const handleSidebarShow = () => setShowSidebar(true);
 
   const handleLogout = () => {
-    logout(); // Clear the auth state
-    navigate('/login'); // Redirect to login page
+    logout();
+    navigate('/login');
+  };
+  
+  // This function is passed to the mobile sidebar to close it after navigation
+  const handleLinkClick = () => {
+    handleSidebarClose();
   };
 
   return (
     <Container fluid className="vh-100 d-flex flex-column p-0" data-bs-theme="dark">
-      <header className="bg-dark border-bottom border-secondary-subtle px-4 py-2 d-flex justify-content-between align-items-center">
-        <h5 className="mb-0">✓ Task Manager</h5>
+      <header className="bg-dark border-bottom border-secondary-subtle px-3 py-2 d-flex justify-content-between align-items-center">
+        {/* Hamburger Menu - visible only on smaller screens */}
+        <Button variant="dark" onClick={handleSidebarShow} className="d-lg-none">
+          ☰
+        </Button>
+        
+        <h5 className="mb-0 mx-2">✓ Task Manager</h5>
+
+        {/* Spacer to push logout to the right */}
+        <div className="flex-grow-1"></div> 
+        
         <Button variant="outline-secondary" size="sm" onClick={handleLogout}>
           Logout
         </Button>
       </header>
+
       <Row className="flex-grow-1 mx-0">
-        <Col xs={2} className="bg-dark p-3 border-end border-secondary-subtle">
-          <Nav className="flex-column">
-            <Nav.Item>
-              <NavLink to="/tasks" className="nav-link">Tasks</NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink to="/audit-logs" className="nav-link">Audit Logs</NavLink>
-            </Nav.Item>
-          </Nav>
+        {/* Static Sidebar - visible only on large screens */}
+        <Col lg={2} className="d-none d-lg-block bg-dark p-3 border-end border-secondary-subtle">
+          <SidebarNav />
         </Col>
-        <Col xs={10} className="p-4 bg-dark-subtle">
+
+        {/* Main Content Area */}
+        <Col xs={12} lg={10} className="p-4 bg-dark-subtle overflow-auto">
           <Outlet /> {/* Child routes will render here */}
         </Col>
       </Row>
+
+      {/* Offcanvas Sidebar for Mobile/Tablet */}
+      <Offcanvas show={showSidebar} onHide={handleSidebarClose} responsive="lg" className="bg-dark text-white">
+        <Offcanvas.Header closeButton closeVariant="white">
+          <Offcanvas.Title>Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <SidebarNav onLinkClick={handleLinkClick} />
+        </Offcanvas.Body>
+      </Offcanvas>
     </Container>
   );
 };

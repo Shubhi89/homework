@@ -1,6 +1,6 @@
 // src/pages/AuditLogsPage.jsx
 import React, { useState, useEffect } from 'react';
-import { Table, Badge, Spinner, Alert } from 'react-bootstrap';
+import { Table, Badge, Spinner, Alert, Card } from 'react-bootstrap';
 import api from '../services/api';
 
 const AuditLogsPage = () => {
@@ -14,7 +14,7 @@ const AuditLogsPage = () => {
       setError('');
       try {
         const response = await api.get('/logs');
-        setLogs(response.data);
+        setLogs(response.data.logs || response.data); // Handle both paginated and non-paginated responses
       } catch (err) {
         setError('Failed to fetch audit logs.');
         console.error(err);
@@ -51,10 +51,11 @@ const AuditLogsPage = () => {
     <>
       <h3 className="mb-4 text-primary fs-3">Audit Logs</h3>
       {error && <Alert variant="danger">{error}</Alert>}
+      
       {loading ? (
         <div className="text-center"><Spinner animation="border" /></div>
-      ) : (
-        <Table striped bordered hover variant="dark">
+      ) : logs.length > 0 ? (
+        <Table striped bordered hover variant="dark" responsive>
           <thead>
             <tr>
               <th>Timestamp</th>
@@ -74,6 +75,10 @@ const AuditLogsPage = () => {
             ))}
           </tbody>
         </Table>
+      ) : (
+        <Card body className="text-center bg-dark-tertiary">
+          No audit logs found.
+        </Card>
       )}
     </>
   );

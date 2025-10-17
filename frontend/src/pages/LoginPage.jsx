@@ -27,9 +27,10 @@ const LoginPage = () => {
 
   return (
     <Container className="vh-100 d-flex align-items-center justify-content-center" fluid data-bs-theme="dark">
-      <Row>
-        <Col>
-          <Card style={{ width: '25rem' }}>
+      <Row className="w-100 justify-content-center">
+        {/* Responsive column that adjusts its width based on screen size */}
+        <Col xs={11} sm={8} md={6} lg={5} xl={4}>
+          <Card>
             <Card.Body>
               <Card.Title className="text-center mb-4">Task Manager Login</Card.Title>
               {error && <Alert variant="danger">{error}</Alert>}
