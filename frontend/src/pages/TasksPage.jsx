@@ -69,8 +69,7 @@ const TasksPage = () => {
 
   const handleSaveTask = async (e) => {
     e.preventDefault();
-    
-    [cite_start]// Frontend Validation from the assessment requirements [cite: 152-153]
+
     if (!formData.title.trim() || !formData.description.trim()) {
       alert('Title and Description cannot be empty.');
       return;

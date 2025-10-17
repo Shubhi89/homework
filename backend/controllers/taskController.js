@@ -130,8 +130,23 @@ exports.deleteTask = async (req, res) => {
 // GET all audit logs
 exports.getLogs = async (req, res) => {
   try {
-    const logs = await Log.find().sort({ timestamp: -1 });
-    res.json(logs);
+    const page = parseInt(req.query.page) || 1;
+    const limit = 10; // Let's show 10 logs per page
+    const skip = (page - 1) * limit;
+
+    const logs = await Log.find()
+      .sort({ timestamp: -1 }) // Show the newest logs first
+      .skip(skip)
+      .limit(limit);
+      
+    const totalLogs = await Log.countDocuments();
+    const totalPages = Math.ceil(totalLogs / limit);
+
+    res.json({
+      logs,
+      currentPage: page,
+      totalPages,
+    });
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
   }
