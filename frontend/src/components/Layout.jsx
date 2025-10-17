@@ -1,14 +1,26 @@
 // src/components/Layout.jsx
 import React from 'react';
-import { Container, Row, Col, Nav } from 'react-bootstrap';
-import { NavLink, Outlet } from 'react-router-dom';
-import './Layout.css'; // We'll create this CSS file next
+import { Container, Row, Col, Nav, Button } from 'react-bootstrap';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
+import './Layout.css';
 
 const Layout = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(); // Clear the auth state
+    navigate('/login'); // Redirect to login page
+  };
+
   return (
     <Container fluid className="vh-100 d-flex flex-column p-0" data-bs-theme="dark">
-      <header className="bg-dark border-bottom border-secondary-subtle px-4 py-2 d-flex align-items-center">
-        <NavLink to = '/' className="mb-0 text-primary bold fs-2 text-decoration-none">✓ Task Manager</NavLink>
+      <header className="bg-dark border-bottom border-secondary-subtle px-4 py-2 d-flex justify-content-between align-items-center">
+        <h5 className="mb-0">✓ Task Manager</h5>
+        <Button variant="outline-secondary" size="sm" onClick={handleLogout}>
+          Logout
+        </Button>
       </header>
       <Row className="flex-grow-1 mx-0">
         <Col xs={2} className="bg-dark p-3 border-end border-secondary-subtle">
